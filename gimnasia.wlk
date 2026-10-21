@@ -1,5 +1,3 @@
-class ABC {}
-
 // == 1.Personas ==
 object running {
     var intensidad = 0 
@@ -83,8 +81,6 @@ class Persona {
             self.error("No se puede realizar la rutina")
         }
     }
-
-
 }
 
 class PersonaSedentaria inherits Persona{
@@ -104,8 +100,7 @@ class PersonaSedentaria inherits Persona{
 
     method seleccionarPeso(nuevoPeso) {
         peso = nuevoPeso
-    }
-    
+    }  
 }
 
 class PersonaAtleta inherits Persona {
@@ -113,12 +108,12 @@ class PersonaAtleta inherits Persona {
         return (8000)
     }
 
-    override method pesoPerdido(rutina) {
-        return (rutina.caloriasConsumidas(self.tiempoEjercicio()) / self.caloriasPorKilo()) - 1
-    }
-
     override method tiempoEjercicio() {
         return 90 
+    }
+
+    override method pesoPerdido(rutina) {
+        return (rutina.caloriasConsumidas(self.tiempoEjercicio()) / self.caloriasPorKilo()) - 1
     }
 
     override method puedeRealizarRutina(rutina) {
@@ -127,4 +122,13 @@ class PersonaAtleta inherits Persona {
 }
 
 
-// == 3.Atletas ==
+// == 3.Clubes ==
+class Club {
+    var predios = #{}
+}
+
+class Predio inherits Club {
+    var rutinas = #{}
+
+    method totalDeCaloriasQueSePuedeQuemar(persona) = rutinas.sum({rutina => rutina.caloriasConsumidas(persona.tiempoEjercicio())})
+}
