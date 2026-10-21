@@ -63,6 +63,7 @@ class Persona {
 
     method caloriasPorKilo()
     method tiempoEjercicio() 
+    method puedeRealizarRutina(rutina) 
 
     method asignarPeso(_peso) {
         peso = _peso
@@ -73,13 +74,17 @@ class Persona {
     }
 
     method ejercitarRutina(rutina) {
-        self.validarPuedeEjercitar()
+        self.validarPuedeEjercitar(rutina)
         peso -= self.pesoPerdido(rutina)
     }
     
-    method validarPuedeEjercitar() {
-        return peso > 50
+    method validarPuedeEjercitar(rutina) {
+        if(not self.puedeRealizarRutina(rutina)) {
+            self.error("No se puede realizar la rutina")
+        }
     }
+
+
 }
 
 class PersonaSedentaria inherits Persona{
@@ -116,7 +121,10 @@ class PersonaAtleta inherits Persona {
         return 90 
     }
 
-    override method validarPuedeEjercitar() {
+    override method puedeRealizarRutina(rutina) {
         return rutina.caloriasConsumidas(self.tiempoEjercicio()) > 10000
     }
 }
+
+
+// == 3.Atletas ==
